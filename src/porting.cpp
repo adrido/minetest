@@ -356,11 +356,11 @@ bool setSystemPaths()
 	pathRemoveFile(buf, '\\');
 
 	// Use ".\bin\.."
-	path_share = std::string(buf) + "\\..";
+	path_share = std::string(buf) + "\\";
 
 	// Use "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
-	DWORD len = GetEnvironmentVariable("APPDATA", buf, sizeof(buf));
-	FATAL_ERROR_IF(len == 0 || len > sizeof(buf), "Failed to get APPDATA");
+	DWORD len = GetEnvironmentVariable("USERPROFILE", buf, sizeof(buf));
+	FATAL_ERROR_IF(len == 0 || len > sizeof(buf), "Failed to get USERPROFILE");
 
 	path_user = std::string(buf) + DIR_DELIM + PROJECT_NAME;
 	return true;
