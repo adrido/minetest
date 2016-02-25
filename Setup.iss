@@ -7,9 +7,10 @@
 #define MyAppURL "http://www.minetest.net"
 #define MyAppExeName "minetest.exe"
 
-#define MinetestSourceDir "\"
-#define MinetestWin64BinDir "D:\Program Files\minetest_X64\bin"
-#define MinetestWin32BinDir "\"
+#define MinetestSourceDir ".\"
+
+#define MinetestWin64BinDir "D:\Program Files\minetest\bin"#define MinetestWin32BinDir "D:\Program Files (x86)\minetest\bin"
+#define MinetestGameDir "D:\Programme\minetest\games\minetest_game"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -44,12 +45,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "\README.txt"; DestDir: "{app}"; Flags: isreadme
+Source: "{#MinetestSourceDir}\README.txt"; DestDir: "{app}"; Flags: isreadme
 Source: "{#MinetestWin64BinDir}\*"; DestDir: "{app}"; Flags: ignoreversion; Components: MinetestEngine; Check: IsWin64
-Source: "\builtin\*"; DestDir: "{app}\builtin\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
-Source: "\fonts\*"; DestDir: "{app}\fonts\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
-Source: "\textures\*"; DestDir: "{app}\textures\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
-Source: "\games\minimal\*"; DestDir: "{app}\games\minimal\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: minimal
+Source: "{#MinetestWin32BinDir}\*"; DestDir: "{app}"; Flags: ignoreversion; Components: MinetestEngine; Check: not IsWin64
+Source: "{#MinetestSourceDir}\builtin\*"; DestDir: "{app}\builtin\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
+Source: "{#MinetestSourceDir}\fonts\*"; DestDir: "{app}\fonts\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
+Source: "{#MinetestSourceDir}\textures\*"; DestDir: "{app}\textures\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestEngine
+Source: "{#MinetestSourceDir}\games\minimal\*"; DestDir: "{app}\games\minimal\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: minimal
+Source: "{#MinetestGameDir}\*"; DestDir: "{app}\games\minetest_game\"; Flags: ignoreversion createallsubdirs recursesubdirs; Components: MinetestGame
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
@@ -63,3 +66,4 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [Components]
 Name: "MinetestEngine"; Description: "Minetest engine"; Types: compact custom full; Flags: fixed
 Name: "minimal"; Description: "Minimal Development Test Game"
+Name: "MinetestGame"; Description: "Minetest Game"; Types: full custom compact
