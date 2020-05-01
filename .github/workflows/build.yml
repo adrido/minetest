@@ -172,6 +172,8 @@ jobs:
   msvc:
     name: VS 2019 ${{ matrix.config.arch }}-${{ matrix.type }}
     runs-on: windows-2019 
+    if: matrix.type == "portable" || contains(github.ref, "tags") || contains(github.ref, "stable")
+# To save build jobs, create the installer only on tags and on stable branch
     env:
       VCPKG_VERSION: c7ab9d3110813979a873b2dbac630a9ab79850dc
 #                    2020.04
