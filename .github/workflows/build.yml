@@ -224,6 +224,7 @@ jobs:
       VCPKG_VERSION: c7ab9d3110813979a873b2dbac630a9ab79850dc
 #                    2020.04
       vcpkg_packages: irrlicht zlib curl[winssl] openal-soft libvorbis libogg sqlite3 freetype luajit
+      VCPKG_KEEP_ENV_VARS: DXSDK_DIR
     strategy:
       fail-fast: false
       matrix:
